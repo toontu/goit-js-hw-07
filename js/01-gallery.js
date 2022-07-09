@@ -25,12 +25,21 @@ const galleryItemsArray = galleryItems.map(makeGalleryItemsEl);
 
 galleryEl.insertAdjacentHTML('afterbegin', galleryItemsArray.join(''));
 
-backdropEl.addEventListener('click', event => {
+const onImageClick = event => {
   event.preventDefault();
-});
 
-const instance = basicLightbox.create(`
-    <img src="${target.dataset.source}" width="800" height="600">
+  if (event.target.nodeName !== 'IMG') {
+    return;
+  }
+
+  const instance = basicLightbox.create(`
+    <img src="${event.target.dataset.source}" width="800" height="600">
 `);
 
-instance.show();
+  instance.show();
+};
+
+galleryEl.addEventListener('click', onImageClick);
+
+// const visible = basicLightbox.visible();
+// console.log(visible);
