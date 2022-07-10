@@ -1,7 +1,9 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-const galleryEl = document.querySelector('div.gallery');
+console.log(galleryItems);
+
+const galleryListEl = document.querySelector('div.gallery');
 
 const makeGalleryItemsEl = ({ preview, original, description } = {}) => {
   return `
@@ -23,7 +25,9 @@ const makeGalleryItemsEl = ({ preview, original, description } = {}) => {
 // });
 const galleryItemsArray = galleryItems.map(makeGalleryItemsEl);
 
-galleryEl.insertAdjacentHTML('afterbegin', galleryItemsArray.join(''));
+galleryListEl.insertAdjacentHTML('afterbegin', galleryItemsArray.join(''));
+
+let instance;
 
 const onImageClick = event => {
   event.preventDefault();
@@ -31,15 +35,21 @@ const onImageClick = event => {
   if (event.target.nodeName !== 'IMG') {
     return;
   }
-
-  const instance = basicLightbox.create(`
+  instance = basicLightbox.create(`
     <img src="${event.target.dataset.source}" width="800" height="600">
 `);
 
   instance.show();
 };
 
-galleryEl.addEventListener('click', onImageClick);
+galleryListEl.addEventListener('click', onImageClick);
 
-// const visible = basicLightbox.visible();
-// console.log(visible);
+const onEscBtnPush = event => {
+  if (event.code !== 'Escape') {
+    return;
+  }
+
+  instance.close();
+};
+
+window.addEventListener('keydown', onEscBtnPush);
