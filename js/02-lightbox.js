@@ -22,14 +22,17 @@ const makeGalleryItem = ({ preview, original, description } = {}) => {
   <img class="gallery__image" src="${preview}" alt="${description}" />
 </a>`;
 };
+// console.log(makeGalleryItem(galleryItems[0]));
 
 const galleryItemsArr = galleryItems.map(makeGalleryItem);
 // const galleryItemsArr = galleryItems.map(el => {
 //   return makeGalleryItem(el);
 // });
+// console.log(galleryItemsArr);
 
 imageGalleryEl.innerHTML = galleryItemsArr.join('');
 // console.log(galleryItemsArr.join(''));
+// console.log(imageGalleryEl.innerHTML);
 
 const lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 250 });
 
